@@ -49,7 +49,7 @@ class PlayerController extends AbstractController {
                     $email = sanitize($_POST['email']);
 
                     // Check si le joueur n'existe pas
-                    if(!$this->getModel()['pseudo']->getEmail($_POST['email'])) {
+                    if(!$this->getModel()['pseudo']->getByEmail()) {
 
                         // Hashage du mdp
                         $hash = password_hash(sanitize($password), PASSWORD_DEFAULT);

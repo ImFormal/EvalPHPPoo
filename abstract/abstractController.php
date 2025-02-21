@@ -32,7 +32,7 @@ abstract class AbstractController {
     }
 
     public function getModel(): InterfaceModel{
-        return $this->model;
+        return new ModelPlayer();
     }
 
     public function setModel(InterfaceModel $model): self{

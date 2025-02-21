@@ -71,43 +71,61 @@ class ModelPlayer implements InterfaceModel {
     //METHOD
     public function add(): string{
 
-        $bdd = $this->getBdd();
+        try{
+            $bdd = $this->getBdd();
 
-        $requete = "INSERT INTO players(pseudo, email, score, `pssword`) VALUE(?,?,?,?)";
-        $req = $bdd->prepare($requete);
-        $req->bindParam(1, $this->pseudo, PDO::PARAM_STR);
-        $req->bindParam(2,  $this->email, PDO::PARAM_STR);
-        $req->bindParam(3, $this->score, PDO::PARAM_STR);
-        $req->bindParam(4, $this->password, PDO::PARAM_STR);
-        
-        if($req->execute()){
-            return "Enregistrement de l'utilisateur avec succès !";
+            $requete = "INSERT INTO players(pseudo, email, score, `pssword`) VALUE(?,?,?,?)";
+            $req = $bdd->prepare($requete);
+            $req->bindParam(1, $this->pseudo, PDO::PARAM_STR);
+            $req->bindParam(2,  $this->email, PDO::PARAM_STR);
+            $req->bindParam(3, $this->score, PDO::PARAM_STR);
+            $req->bindParam(4, $this->password, PDO::PARAM_STR);
+            
+            if($req->execute()){
+                return "Enregistrement de l'utilisateur avec succès !";
+            }
+
+            return "Enregistrement échoué !";
         }
-
-        return "Enregistrement échoué !";
+        catch(Exception $e) {
+            echo "Erreur : " . $e->getMessage();
+            return "Enregistrement échoué !";
+        }
     }
 
     public function getAll(): array|null {
 
-        $bdd = $this->getBdd();
+        try{
+            $bdd = $this->getBdd();
 
-        $requete = "SELECT id, pseudo, email, score FROM players";
-        $req = $bdd->prepare($requete);
-        $req->execute();
-        
-        return $req->fetchAll(PDO::FETCH_ASSOC);
+            $requete = "SELECT id, pseudo, email, score FROM players";
+            $req = $bdd->prepare($requete);
+            $req->execute();
+            
+            return $req->fetchAll(PDO::FETCH_ASSOC);
+        }
+        catch(Exception $e) {
+            echo "". $e->getMessage();
+            return null;
+        }
     }
 
     public function getByEmail(): array|null {
 
-        $bdd = $this->getBdd();
-        $email = $this->getEmail();
+        try{
+            $bdd = $this->getBdd();
+            $email = $this->getEmail();
 
-        $requete = "SELECT id, pseudo, email, score FROM players WHERE email = ?";
-        $req = $bdd->prepare($requete);
-        $req->bindParam(1, $email, PDO::PARAM_STR);
-        $req->execute();
-        
-        return $req->fetch(PDO::FETCH_ASSOC);
+            $requete = "SELECT id, pseudo, email, score FROM players WHERE email = ?";
+            $req = $bdd->prepare($requete);
+            $req->bindParam(1, $email, PDO::PARAM_STR);
+            $req->execute();
+            
+            return $req->fetch(PDO::FETCH_ASSOC);
+        }
+        catch(Exception $e) {
+            echo "". $e->getMessage();
+            return null;
+        }
     }
 }

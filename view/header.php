@@ -8,5 +8,6 @@
 <body>
     <header>
         <nav></nav>
+        <h1>Accueil</h1>
     </header>
     <main>

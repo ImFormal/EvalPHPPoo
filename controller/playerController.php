@@ -92,7 +92,7 @@ class PlayerController extends AbstractController {
         $data = $this->getModel()->getAll();
         $listUsers = "";
         foreach($data as $joueur){
-            $listUsers = $listUsers."<li><h4>".$joueur['pseudo'] ." ". $joueur['email']."</h4>      <p>".$joueur['score']."</p></li>";
+            $listUsers = $listUsers."<li><h4>".$joueur['pseudo'] ."</h4><p>". $joueur['email']."</p>      <p>Score : ".$joueur['score']."</p></li><hr>";
         }
         return $listUsers;
     }
